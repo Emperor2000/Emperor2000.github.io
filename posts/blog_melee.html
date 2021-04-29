@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<title>Vincent Hendriks' Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+</style>
+<body class="w3-light-grey w3-content" style="max-width:1600px">
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white" style="z-index:3;width:300px;" id="mySidebar"><br>
+  <div class="w3-container">
+    <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey" title="close menu">
+      <i class="fa fa-remove"></i>
+    </a>
+    <img src="../images/avatar.png" style="width:45%;" class="w3-round"><br><br>
+    <h4><b>PORTFOLIO</b></h4>
+    <p class="w3-text-grey">Software Engineering student</p>
+  </div>
+  <div class="w3-bar-block">
+    <a href="../index.html" onclick="w3_close()" class="w3-bar-item w3-button w3-padding "><i class="fa fa-th-large fa-fw w3-margin-right"></i>PORTFOLIO</a> 
+	 <a href="../index.html#about" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>ABOUT</a> 
+	<a href="../index.html#blog" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>BLOG</a> 
+    <a href="../index.html#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>CONTACT</a>
+  </div>
+  <div class="w3-panel w3-large">
+   <a href="https://www.linkedin.com/in/vincent-hendriks-aa627a146/" target="_blank"><i class="fa fa-linkedin w3-hover-opacity iconmargin"></i></a>
+   <a href="https://github.com/Emperor2000/" target="_blank"><i class="fa fa-github w3-hover-opacity iconmargin"></i></a>
+
+  </div>
+</nav>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px">
+
+  <!-- Header -->
+  <header id="portfolio">
+    <a href="#"><img src="images/avatar.png" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+    <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
+    <div class="w3-container">
+    <h1><b>Blog Posts</b></h1>
+    <div class="w3-section w3-bottombar w3-padding-16">
+	<!--
+      <span class="w3-margin-right">Filter:</span> 
+      <button class="w3-button w3-black">ALL</button>
+      <button class="w3-button w3-white"><i class="fa fa-diamond w3-margin-right"></i>Design</button>
+      <button class="w3-button w3-white w3-hide-small"><i class="fa fa-photo w3-margin-right"></i>Photos</button>
+      <button class="w3-button w3-white w3-hide-small"><i class="fa fa-map-pin w3-margin-right"></i>Art</button>
+	  -->
+    </div>
+    </div>
+  </header>
+  
+    <div class="w3-container w3-padding-large" style="margin-bottom:32px">
+    <h3><b>Creating top-down melee combat in "Game Maker Studio 2" | Part 1</b></h3>
+	<hr>
+	<h4>Introduction</h4>
+	<p>This post will provide a rundown on implementing melee combat in a top-down scenario for your projects. I will be using Game Maker Studio 2, though the logic can be applied to almost any program or project. We will take a look at simple enemies and their behaviours, fighting mechanics, health and knockback. Part 1 will focus on the player's spear mechanics and hitting enemies.</p>
+	<img class="img-fluid" width="30%" src="../images/blog3meleecombat.gif" alt="Melee combat preview" />
+	<p>An example implementation of melee combat.</p>
+	<hr>
+	<h4>Prerequisites</h4>
+	<p>I will use GML (Game Maker Language) to demonstrate the functionality, if you would like to follow along, you could download a trial version of the software from the YoYo Games website. It is worth mentioning that this is not a step by step tutorial or explanation, but rather a brief explanation of a possible solution.</p>
+	<p>Before we begin there are a few basic fuctionalities and resources that need to be realised. These functionalities are:</p>
+	<ul>
+	<li>A player character that can walk left, right, up and down.</li>
+	<li>An enemy character that follows the player and damages him on touching.</li>
+	<li>A basic health system for the player, including a variable for the maximum hp that the player can reach.</li>
+	<li>A background in your room so the characters are properly visible (I would recommend a shade of green).</li>
+	<li>A sprite for a melee weapon, this can be anything as long as it is at least close to the length of the player character (or more).</li>
+	<li>Flip the player character over the x axis as he walks either left or right to represent the correct facing distance.</li>
+	<li>Tip: If you have a movement animation you can reverse it when the player walks backwards!</li>
+	</ul>
+	<br>
+	
+	<h4>The Application Architecture</h4>
+	<img class="img-fluid" width="100%" src="../images/blog3diagrama.png" alt="Application architecture" />
+	<p>In the above image you can view a simple diagram with some classes that we are going to create. Note I will be using snake case in Game Maker, but I encourage you to use whatever you feel comfortable with! Please take a minute to read the notes, also note that this scheme isn't entirely complete, but we will get back to that later!</p>
+	<hr>
+	<h4>Let's get cracking!</h4>
+	<p>Enough waiting! Let's begin shall we :)</p>
+	<h5>The player character</h5>
+	<p>Let's start by expanding the player character. If you haven't yet please consider taking a brief look at the prerequisites for following this small guide.</p>
+	<p>The first thing we are going to do is create a variable in the create event for the player's held item. This will be an instance of a weapon. We will initialize is at 'noone', which is a value that returns -1. This is easy to use for checking if the player has a weapon, if the value is -1/noone, it is basically the same as undefined, although it does not cause any issues when a variable returns noone. As soon as you have designed a weapon you can change this value to the weapon, if you do not intend on having weapon drops or obtaining them you could immediately allocate an instance of the weapon that the player should have equipped. If the player's health is less than zero, make sure to destroy the instance of the weapon along with the player. This can be done with the instance_destroy() function. In the step event you can handle movement for the player.</p>
+	<p>That is most of the work for the player. It may seem weird but since a lot of values may vary per weapon it is useful to put as much data as possible in the weapon data itself instead of retrieving data from the player, there is no point in overwriting everything again when a different weapon is equipped. A possible alternative would be an array of possible weapons and adding all properties in the player instead of creating a seperate weapon object. Due to the nature of the weapon's visuals I have chosen not to do this because by creating seperate objects for each weapon (in my opinion) it allows me to customize graphics faster and easier.</p>
+	<hr>
+	<h5>The player's first weapon</h5>
+	<p>I have decided to create a spear and candy cane as weapons for the player. I will discuss how I created the spear in this section.</p>
+	<img class="img-fluid" width="50%" src="../images/blog3spearcreate.png" alt="obj_spear create event." />
+	<p>In the above image you see the code in the create event/method for the player. You could compare this with a constructor, however getters and setters are not required in Game Maker Studio.</p>
+	<p>The first thing that executes in the step event is a bit of code that checks whether the player is pressing the right mouse button. If he is, the image angle of the spear sprite will rotate towards the mouse. Because the origin of my spear is at the bottom of the spear it always rotates the tip of the spear towards the mouse. The move_rotation variable is set to equal the rotation of the spear relative to the mouse coordinates. This can be done with "move_direction = point_direction(id.x, id.y, mouse_x, mouse_y)" where id refers to the current instance (obj_spear) and mouse refers to the coordinates of the mouse on the application surface.</p>
+	<p>The spear has 2 different functionalities. The player can attack an enemy using the left mouse button, which will provide a high damage sweep. Alternatively, the player can point his spear in the direction of enemies, on contact the enemies will take a low amount of damage and be knockbacked depending on the speed that the player moved his mouse in the direction of the enemy.</p>
+	<p>The next thing we can do is check if the player is clicking at an enemy. We can check this by retrieving any objects under the coordinates of the mouse. We can do this using the instance_position() function. It takes 3 arguments: x, y and the object. In our case these are mouse_x, mouse_y and obj_enemy_parent. If we find any instance of which obj_enemy_parent is a parent we know that there is an enemy. So make sure to allocate the returned value from the above function to a local variable (hint: this is _enemy as seen from the application architecture UML scheme). Once we have our enemy we can simply obtain the distance of the enemy to the player using the distance_to_object function. Then we can check whether the distance is less than the spear's attack range. If so we could set a selector id (which could be a cool sprite to indicate we have range on the enemy).</p>
+	<p>If the player clicks, we can check if the cooldown is equal to 0, the mouse is pressed and in my case whether the player's stamina is greater than the weapon's stamina drain. If so, we can apply a rotation to the weapon, apply a cooldown and remove the player's stamina by the stamina drain of the spear. Then you can simply damage your enemy by reducing it's hp.</p>
+	<p>We are not quite there yet, you may have read something about a rotation but this rotation doesn't do anything right now. We are going to use linear interpolation to create an animation and return it to it's original position after sweeping. In the beginning of the step event add: "rotation = lerp(rotation+move_rotation, 360, 0.1);". This will interpolate the total rotation of the player's weapon along with the direction the player is aiming in with his mouse. The second argument is the rotation_amount which indicates how many degrees the sweep or spear strike will be. If you want to make it interesting you could add a random value here. For example: "irandom_range(200, 360)" for a value between the specified inputs. The last argument is set to 0.1 which is the amount to interpolate per step. The benefit of using lerp in this situation is that it will create a smooth animation, if the amount of degrees that have been rotated is still small the weapon will rotate very fast, but if it is close to the desires amount, it will rotate a lot slower and thus create a smooth transition from combat to idle.</p>
+	<img class="img-fluid" width="50%" src="../images/blog3lerpsnippet.png" alt="Snippet of the linear interpolation code." />
+	<p>A small snippet of the lerp code. (in the step event)</p>
+	<img class="img-fluid" width="50%" src="../images/blog3cooldown.png" alt="Snippet of the code for cooldown." />
+	<p>The code displayed above in the snippet is also a part of the step event. If the cooldown is larger than 0, we reduce it by 1 every step. After this we calculate the move_rotation_calculated which is the percentual change of the current move rotation compared to the old move rotation. The larger the percentage, the more knockback we can apply. The higher the percentage, the faster the player's strike. After this the old move rotation is adjusted to equal the current move_rotation and the old_move_rotation divided by 2. After which we can define the knockback_multiplier as the knockback_base_value multiplied by the calculated move rotation (move_rotation_calculated). After this we check if the multiplier is greater than the maximum value, if it is we correct it.</p>
+	
+	<p>To finalize, we can add a collision event with instances of obj_enemy_parent.</p>
+	<img class="img-fluid" width="50%" src="../images/blog3spearcollide.png" alt="Snippet of the collision code for colliding the spear with the enemy." />
+	<p>The above code is the collision event in the spear with the obj_enemy_parent (or children). We check if the knockback_multiplier is less than 0, if it is we ensure it is a positive value (using abs). Next we check if the knockback that is calculated is greater than the maximum knockback, if it is we limit it to the maximum value. Note that there is an alarm[0] event which will set collide_cooldown to false after collide_cooldown_timer has passed. This is to prevent the player from being able to spam his attacks. Next we simply check if the conditions are met, apply a cooldown, reduce the stamina by half the main action drain, add a bit of damage to the player (I do this using a script to add knockback) and finally apply knockback using the get_knockbacked() script/custom function. I will explain how to create this later! Implementing all this functionality could result in something like this (enemy functionality will be covered later):</p>
+	<img class="img-fluid" width="50%" src="../images/knockback_based_on_speed.gif" alt="combat preview" />
+	
+	<h4>Wrapping up</h4>
+	<p>That's it for part 1! I will try to publish part 2 as soon as I finish it! </p>
+	</div>
+  
+  
+  
+  
+  
+  
+  
+  <!-- Contact Section -->
+  <div class="w3-container w3-padding-large w3-grey">
+    <h4 id="contact"><b>Contact Me</b></h4>
+    <div class="w3-row-padding w3-center w3-padding-24" style="margin:0 -16px">
+      <div class="w3-third w3-dark-grey">
+        <p><i class="fa fa-envelope w3-xxlarge w3-text-light-grey"></i></p>
+        <p>vincent@pcs.nl</p>
+      </div>
+      <div class="w3-third w3-teal">
+        <p><i class="fa fa-map-marker w3-xxlarge w3-text-light-grey"></i></p>
+        <p>Zuid-Holland, The Netherlands</p>
+      </div>
+      <div class="w3-third w3-dark-grey">
+        <p><i class="fa fa-phone w3-xxlarge w3-text-light-grey"></i></p>
+        <p>0612079076</p>
+      </div>
+    </div>
+    <hr class="w3-opacity">
+	<!--WORK IN PROGRESS-->
+	<!--
+    <form action="/action_page.php" target="_blank">
+      <div class="w3-section">
+        <label>Name</label>
+        <input class="w3-input w3-border" type="text" name="Name" required>
+      </div>
+      <div class="w3-section">
+        <label>Email</label>
+        <input class="w3-input w3-border" type="text" name="Email" required>
+      </div>
+      <div class="w3-section">
+        <label>Message</label>
+        <input class="w3-input w3-border" type="text" name="Message" required>
+      </div>
+      <button type="submit" class="w3-button w3-black w3-margin-bottom"><i class="fa fa-paper-plane w3-margin-right"></i>Send Message</button>
+    </form>-->
+  </div>
+
+
+
+  <!-- Footer -->
+  <footer class="w3-container w3-padding-32 w3-dark-grey">
+  <div class="w3-row-padding">
+  </div>
+  </footer>
+  
+  <div class="w3-black w3-center w3-padding-24">Copyright © Vincent Hendriks 2020</div>
+
+<!-- End page content -->
+</div>
+
+<script>
+// Script to open and close sidebar
+function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+}
+
+//script to add dynamic pagination
+function page1_close() {
+	document.getElementById("page1").style.display = "none";
+}
+
+function page2_close() {
+	document.getElementById("page2").style.display = "none";
+}
+
+function page1_open() {
+	document.getElementById("page1").style.display = "block";
+}
+
+function page2_open() {
+	document.getElementById("page2").style.display = "block";
+}
+</script>
+
+
+<script>
+//Button styling -> active
+
+// Get the container element
+var btnContainer = document.getElementById("pagination");
+
+// Get all buttons with class="btn" inside the container
+var btns = btnContainer.getElementsByClassName("w3-bar-item");
+
+// Loop through the buttons and add the active class to the current/clicked button
+for (var i = 0; i < btns.length; i++) {
+  btns[i].addEventListener("click", function() {
+    var current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace(" active", "");
+    this.className += " active";
+  });
+}
+
+
+</script>
+
+</body>
+</html>

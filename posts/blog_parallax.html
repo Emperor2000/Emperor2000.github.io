@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<title>Vincent Hendriks' Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+</style>
+<body class="w3-light-grey w3-content" style="max-width:1600px">
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white" style="z-index:3;width:300px;" id="mySidebar"><br>
+  <div class="w3-container">
+    <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey" title="close menu">
+      <i class="fa fa-remove"></i>
+    </a>
+    <img src="../images/avatar.png" style="width:45%;" class="w3-round"><br><br>
+    <h4><b>PORTFOLIO</b></h4>
+    <p class="w3-text-grey">Software Engineering student</p>
+  </div>
+  <div class="w3-bar-block">
+    <a href="../index.html" onclick="w3_close()" class="w3-bar-item w3-button w3-padding "><i class="fa fa-th-large fa-fw w3-margin-right"></i>PORTFOLIO</a> 
+	 <a href="../index.html#about" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>ABOUT</a> 
+	<a href="../index.html#blog" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>BLOG</a> 
+    <a href="../index.html#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>CONTACT</a>
+  </div>
+  <div class="w3-panel w3-large">
+   <a href="https://www.linkedin.com/in/vincent-hendriks-aa627a146/" target="_blank"><i class="fa fa-linkedin w3-hover-opacity iconmargin"></i></a>
+   <a href="https://github.com/Emperor2000/" target="_blank"><i class="fa fa-github w3-hover-opacity iconmargin"></i></a>
+
+  </div>
+</nav>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px">
+
+  <!-- Header -->
+  <header id="portfolio">
+    <a href="#"><img src="images/avatar.png" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+    <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
+    <div class="w3-container">
+    <h1><b>Blog Posts</b></h1>
+    <div class="w3-section w3-bottombar w3-padding-16">
+	<!--
+      <span class="w3-margin-right">Filter:</span> 
+      <button class="w3-button w3-black">ALL</button>
+      <button class="w3-button w3-white"><i class="fa fa-diamond w3-margin-right"></i>Design</button>
+      <button class="w3-button w3-white w3-hide-small"><i class="fa fa-photo w3-margin-right"></i>Photos</button>
+      <button class="w3-button w3-white w3-hide-small"><i class="fa fa-map-pin w3-margin-right"></i>Art</button>
+	  -->
+    </div>
+    </div>
+  </header>
+  
+    <div class="w3-container w3-padding-large" style="margin-bottom:32px">
+    <h3><b>Parallax scrolling"</b></h3>
+	<hr>
+	<h4>What is parallax scrolling?</h4>
+	<p>Parallax scrolling is a technique where images that are supposed to be further away move slower than images that are nearby, or closer to the viewer. This is used to create an illusion of depth, in games it can play a big role in creating immersion into the game world.</p>
+	<p>Parallax scrolling in games is nothing new, it has been around for decades! Nowadays it is used in all sorts of games and websites.</p>
+	<p>There are four types of parallax scrolling, this post will take a look at the "Layered Method". The layered method is based on the concept that foreground layers move faster than background layers.</p>
+	<img class="img-fluid" width="50%" src="../images/parallax_example1.jpg" alt="Parallax layered method preview" />
+	<p>An image of the multiple layers in a game called "The Whispered World" that were used to create parallax scrolling.</p>
+	<p>The use of specific layers is very important, especially for parallax scrolling. You have to make sure that every layer contains objects/scenery that should be at the same distance from the camera.</p>
+	<hr>
+	<h4>Implementing parallax scrolling.</h4>
+	<p>I will use GML (Game Maker Language) to demonstrate implementing parallax scrolling, note that this should not make a large difference because the concept remains the same, as such I will attempt to explain the concept rather than the implementation in Game Maker.</p>
+	<p>In order to implement parallax scrolling we can use linear interpolation, often referred to as lerp. It is a function that takes three arguments: two values and the amount to interpolate. It can be used to predict where an object is going to be based on the data that you have. It can also be used to fill/predict missing data assuming the data progresses linearly.</p>
+	<img class="img-fluid" width="50%" src="../images/lerp.png" alt="Linear Interpolation" />
+	<p>Assume we have three coordinates of which we have the data of two, x1,y1 and x3, y3 which have the values of 1,1 and 3,3. How could we calculate the point in the center?</p>
+	<img class="img-fluid" width="50%" src="../images/linear-interpolation-formula.jpg" alt="Linear Interpolation Formula" />
+	<p>Note that in order to get the y2 coordinate, we need to know five values. Do you remember how Game Maker requires a percentage to be given as a parameter? This is used to determine the value of the x2 coordinate (or the y2 coordinate) in the formula. Rather than 5 values, Game Maker only requires two, because it is used for two positions which are either x or y. If you want to know a complete coordinate you have to use the lerp function twice, one for the x value that you want to know and one for the y value that you want to know.</p>
+	<p>But what does lerp have to do with parallax scrolling? We are going to move the layers relative to the camera! Imagine we have our camera origin at (x1, y1) (0,0). What if the camera is moved to (10,10) because the player moved? We can linearly interpolate the background layers to a certain point based on the amount the player has moved! We can determine a given percentage for every layer we have! Imagine we have three layers. One layer is supposed to be at the same depth as the player, we simply move the layer with the player so we don't need linear interpolation. The second and third layer are much further away, so we could move these layers 70 and 80 percent of the distance towards the new camera position. A layer that is further away should seem to move more slowly, which means the percentage should be lower, as it will result in a smaller distance between two points.</p>
+	<img class="img-fluid" width="50%" src="../images/implementation_of_parallax.png" alt="Parallax in Game Maker"/>
+	<p>In the script you can see the first step is to define the different layers. Each layer contains stars and planets that are supposed to be at different distances from the camera. When the camera moves we move the entire layer a percentage relative to the distance that the camera moved from it's origin to the new point. The origin (0,0) is given as the first parameter. The second parameter is either the x position or the y position of the camera. The third parameter is the percentage that we want to move the layer represented by a unit interval. We do this for all the layers that we have and we can get very cool looking effects. This doesn't just work for top-down games, it can be used for all sorts of games like side-scrollers and platformers. You can apply the same principe to your website!</p>
+	<p>HTML/CSS/JS linear interpolation: https://codepen.io/ma77os/pen/KGIEh </p>
+	<p>HTML/CSS/JS parallax scrolling: https://codepen.io/ungmo2/pen/vXkrEj</p>
+	<img class="img-fluid" width="50%" src="../images/parallaxgfw.gif" alt="Parallax in Game Maker"/>
+	<hr>
+	
+	
+	<h4>Wrapping up</h4>
+	<p>That's it for the post on parallax scrolling! I hope you enjoyed reading this, if you have any suggestions, questions or feedback do not hesitate to send me an email! </p>
+	</div>
+  
+  
+  
+  
+  
+  
+  
+  <!-- Contact Section -->
+  <div class="w3-container w3-padding-large w3-grey">
+    <h4 id="contact"><b>Contact Me</b></h4>
+    <div class="w3-row-padding w3-center w3-padding-24" style="margin:0 -16px">
+      <div class="w3-third w3-dark-grey">
+        <p><i class="fa fa-envelope w3-xxlarge w3-text-light-grey"></i></p>
+        <p>vincent@pcs.nl</p>
+      </div>
+      <div class="w3-third w3-teal">
+        <p><i class="fa fa-map-marker w3-xxlarge w3-text-light-grey"></i></p>
+        <p>Zuid-Holland, The Netherlands</p>
+      </div>
+      <div class="w3-third w3-dark-grey">
+        <p><i class="fa fa-phone w3-xxlarge w3-text-light-grey"></i></p>
+        <p>0612079076</p>
+      </div>
+    </div>
+    <hr class="w3-opacity">
+	<!--WORK IN PROGRESS-->
+	<!--
+    <form action="/action_page.php" target="_blank">
+      <div class="w3-section">
+        <label>Name</label>
+        <input class="w3-input w3-border" type="text" name="Name" required>
+      </div>
+      <div class="w3-section">
+        <label>Email</label>
+        <input class="w3-input w3-border" type="text" name="Email" required>
+      </div>
+      <div class="w3-section">
+        <label>Message</label>
+        <input class="w3-input w3-border" type="text" name="Message" required>
+      </div>
+      <button type="submit" class="w3-button w3-black w3-margin-bottom"><i class="fa fa-paper-plane w3-margin-right"></i>Send Message</button>
+    </form>-->
+  </div>
+
+
+
+  <!-- Footer -->
+  <footer class="w3-container w3-padding-32 w3-dark-grey">
+  <div class="w3-row-padding">
+  </div>
+  </footer>
+  
+  <div class="w3-black w3-center w3-padding-24">Copyright © Vincent Hendriks 2020</div>
+
+<!-- End page content -->
+</div>
+
+<script>
+// Script to open and close sidebar
+function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+}
+
+//script to add dynamic pagination
+function page1_close() {
+	document.getElementById("page1").style.display = "none";
+}
+
+function page2_close() {
+	document.getElementById("page2").style.display = "none";
+}
+
+function page1_open() {
+	document.getElementById("page1").style.display = "block";
+}
+
+function page2_open() {
+	document.getElementById("page2").style.display = "block";
+}
+</script>
+
+
+<script>
+//Button styling -> active
+
+// Get the container element
+var btnContainer = document.getElementById("pagination");
+
+// Get all buttons with class="btn" inside the container
+var btns = btnContainer.getElementsByClassName("w3-bar-item");
+
+// Loop through the buttons and add the active class to the current/clicked button
+for (var i = 0; i < btns.length; i++) {
+  btns[i].addEventListener("click", function() {
+    var current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace(" active", "");
+    this.className += " active";
+  });
+}
+
+
+</script>
+
+</body>
+</html>
